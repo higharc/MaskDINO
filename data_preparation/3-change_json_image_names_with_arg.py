@@ -23,19 +23,19 @@ def update_file_names(json_file):
 def main():
     parser = argparse.ArgumentParser(description='Update file names in COCO JSON annotations.')
     parser.add_argument('--dataset_type', type=str, required=True, help='Type of dataset')
-    parser.add_argument('--files_name', type=str, nargs='+', required=True, help='List of file names')
+    parser.add_argument('--key_paths', type=str, nargs='+', required=True, help='List of file names')
     parser.add_argument('--base_url', type=str, required=True, help='Base URL for the dataset')
 
     args = parser.parse_args()
 
     dataset_type = args.dataset_type
-    files_name = args.files_name
+    key_paths = args.key_paths
     base_url = args.base_url
 
-    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, files_name: {files_name}")
+    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}")
 
-    for file_name in files_name:
-        path = base_url.format(file_name)
+    for key_path in key_paths:
+        path = base_url.format(key_path)
         update_file_names(path)
 
 if __name__ == "__main__":
