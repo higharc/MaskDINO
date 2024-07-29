@@ -1,5 +1,7 @@
 import json
 import argparse
+import os
+
 
 def update_file_names(json_file):
     with open(json_file, 'r') as file:
@@ -35,8 +37,9 @@ def main():
     print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}")
 
     for key_path in key_paths:
-        path = base_url.format(key_path)
-        update_file_names(path)
+        for t in ["_panoptic_annotations.coco.json", "_annotations.coco.json"]:
+            path = os.path.join(base_url, key_path, t)
+            update_file_names(path)
 
 if __name__ == "__main__":
     main()
