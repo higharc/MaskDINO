@@ -73,6 +73,19 @@ fi
 echo Job 6 completed successfully!
 echo -------------------------------------------------------------------------------------------------------------------
 
+
+# rem Run job 7: Separate Coco Semantic From Panoptic
+echo Running job 7: Separate Coco Semantic From Panoptic
+echo ---- 
+python 7-prepare_higharc_semantic_annos_from_panoptic_annos.py --dataset_type $DATASET_TYPE --key_paths $KEY_PATHS --base_url $BASE_URL --not_add_log
+if [ $? -ne 0 ]; then
+    echo "Job 7 failed!"
+    exit 1
+fi
+echo Job 7 completed successfully!
+echo -------------------------------------------------------------------------------------------------------------------
+
+
 echo All jobs completed successfully!
 # endlocal
 # pause
