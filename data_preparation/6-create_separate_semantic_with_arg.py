@@ -9,6 +9,7 @@ import multiprocessing as mp
 import time
 import functools
 import random
+from utils import print_
 
 
 # Function to generate a random color
@@ -73,6 +74,7 @@ def main():
     parser.add_argument('--key_paths', type=str, nargs='+', required=True, help='List of key paths')
     parser.add_argument('--base_url', type=str, required=True, help='Base URL for the dataset')
     parser.add_argument('--categories', type=str, required=True, help='Path to categories JSON file')
+    parser.add_argument('--not_add_log', action="store_true", help='Add job log in the output or not')
 
     args = parser.parse_args()
 

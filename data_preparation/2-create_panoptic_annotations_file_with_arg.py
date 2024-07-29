@@ -1,6 +1,8 @@
 import json
 import os
 import argparse
+from utils import print_
+
 
 def convert_coco_to_panoptic(coco_json):
     res = dict()
@@ -38,18 +40,20 @@ def main():
     parser.add_argument('--dataset_type', type=str, required=True, help='Type of dataset')
     parser.add_argument('--key_paths', type=str, nargs='+', required=True, help='List of key paths')
     parser.add_argument('--base_url', type=str, required=True, help='Base URL for the dataset')
+    parser.add_argument('--not_add_log', action="store_true", help='Add job log in the output or not')
 
     args = parser.parse_args()
 
     key_paths = args.key_paths
     base_url = args.base_url
     dataset_type = args.dataset_type
+    add_log = not args.not_add_log
 
-    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}")
+    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}, add_log: {add_log}")
 
     for t in key_paths:    
         anno_file = os.path.join(base_url, t, "_annotations.coco.json")
-        print(f"Processing file: {anno_file}")
+        print_(f"Processing file: {anno_file}", add_log)
         
         with open(anno_file, 'r') as f:
             coco_json = json.load(f)
@@ -59,7 +63,7 @@ def main():
         out_file = os.path.join(base_url, t, "_panoptic_annotations.coco.json")
         with open(out_file, 'w') as f:
             json.dump(panoptic_json, f, indent=2)
-        print(f"Saved panoptic annotations to {out_file}")
+        print_(f"Saved panoptic annotations to {out_file}", add_log)
 
 if __name__ == "__main__":
     main()

@@ -4,6 +4,8 @@ import numpy as np
 import json
 import argparse
 from panopticapi.utils import id2rgb
+from utils import print_
+
 
 def load_annotations(annotations_path):
     # Load the annotations file in COCO format
@@ -38,6 +40,7 @@ def main():
     parser.add_argument('--dataset_type', type=str, required=True, help='Type of dataset')
     parser.add_argument('--key_paths', type=str, nargs='+', required=True, help='List of key paths')
     parser.add_argument('--base_url', type=str, required=True, help='Base URL for the dataset')
+    parser.add_argument('--not_add_log', action="store_true", help='Add job log in the output or not')
 
     args = parser.parse_args()
 
