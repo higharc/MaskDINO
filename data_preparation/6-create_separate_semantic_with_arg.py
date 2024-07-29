@@ -81,6 +81,7 @@ def main():
     dataset_type = args.dataset_type
     key_paths = args.key_paths
     base_url = args.base_url
+    add_log = not args.not_add_log
 
     with open(args.categories, 'r') as f:
         info = json.load(f)
@@ -91,7 +92,7 @@ def main():
         {'color': generate_random_color(), 'isthing': 1, 'id': cat['id'], 'name': cat['name']} for cat in categories
     ]
 
-    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}")
+    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}, add_log: {add_log}")
 
     for key_path in key_paths:   
         separate_coco_semantic_from_panoptic(

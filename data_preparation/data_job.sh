@@ -1,10 +1,10 @@
 #!/bin/bash
+# conda activate maskdino
 
 # rem Set common parameters
 DATASET_TYPE="brochure_construction"
 KEY_PATHS=("test train")
 BASE_URL="/home/ubuntu/dataset/brochure_construction"
-CATEGORIES="/home/ubuntu/dataset/brochure_construction/train/_annotations.coco.json"
 
 # rem Run job 1: Update COCO JSON file names
 echo Running job 1: Update COCO JSON file names
@@ -54,7 +54,7 @@ echo ---------------------------------------------------------------------------
 # rem Run job 5: Generate panoptic segmentation masks
 echo Running job 5: Generate panoptic segmentation masks
 echo ----------------------------------------------------------
-python 5-create_panoptic_masks_with_arg.py --dataset_type $DATASET_TYPE --key_paths $KEY_PATHS --base_url "%BASE_URL%/{}/_annotations.coco.json"
+python 5-create_panoptic_masks_with_arg.py --dataset_type $DATASET_TYPE --key_paths $KEY_PATHS --base_url $BASE_URL --not_add_log
 if [ $? -ne 0 ]; then
     echo "Job 5 failed!"
     exit 1
@@ -65,7 +65,7 @@ echo ---------------------------------------------------------------------------
 # rem Run job 6: Generate semantic segmentation masks
 echo Running job 6: Generate semantic segmentation masks
 echo ----------------------------------------------------------
-python convert_coco.py --dataset_type %DATASET_TYPE% --key_paths $KEY_PATHS --base_url $BASE_URL
+python 6-create_separate_semantic_with_arg.py --dataset_type %DATASET_TYPE% --key_paths $KEY_PATHS --base_url $BASE_URL
 if [ $? -ne 0 ]; then
     echo "Job 6 failed!"
     exit 1

@@ -13,6 +13,7 @@ def load_annotations(annotations_path):
         annotations = json.load(f)
     return annotations
 
+
 def generate_segmentation_masks(annotations, image_shape, image_info):
     # Initialize an empty array to store the segmentation masks
     segmentation_masks = np.zeros((image_shape[0], image_shape[1], 3), dtype=np.uint8)
@@ -47,13 +48,14 @@ def main():
     dataset_type = args.dataset_type
     key_paths = args.key_paths
     base_url = args.base_url
+    add_log = not args.not_add_log
 
-    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}")
+    print(f"Processing dataset_type: {dataset_type}, base_url: {base_url}, key_paths: {key_paths}, add_log: {add_log}")
 
     for key_path in key_paths:   
-        print(f"Processing key path: {key_path}")
+        print_(f"Processing key path: {key_path}", add_log)
         image_dir = os.path.join(base_url, key_path)
-        print(f"Image directory: {image_dir}")
+        print_(f"Image directory: {image_dir}", add_log)
 
         # Path to the annotations file
         annotations_path = '_annotations.coco.json'
