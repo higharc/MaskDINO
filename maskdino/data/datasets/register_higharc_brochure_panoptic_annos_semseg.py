@@ -139,5 +139,5 @@ def register_all_coco_panoptic_annos_sem_seg(root):
         )
 
 
-_root = "/home/ubuntu/dataset/expriment_three_1"
+_root = "/home/ubuntu/dataset/brochure_construction_v2"
 register_all_coco_panoptic_annos_sem_seg(_root)

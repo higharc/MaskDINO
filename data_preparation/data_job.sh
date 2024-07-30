@@ -2,9 +2,9 @@
 # conda activate maskdino
 
 # rem Set common parameters
-DATASET_TYPE="brochure_construction"
+DATASET_TYPE="brochure_construction_v2"
 KEY_PATHS=("test train")
-BASE_URL="/home/ubuntu/dataset/brochure_construction"
+BASE_URL="/home/ubuntu/dataset/brochure_construction_v2"
 
 # rem Run job 1: Update COCO JSON file names
 echo Running job 1: Update COCO JSON file names
