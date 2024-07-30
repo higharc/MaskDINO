@@ -46,6 +46,7 @@ from detectron2.utils.logger import setup_logger
 from maskdino import (
     COCOInstanceNewBaselineDatasetMapper,
     COCOPanopticNewBaselineDatasetMapper,
+    COCOHigharcPanopticNewBaselineDatasetMapper,
     InstanceSegEvaluator,
     MaskFormerSemanticDatasetMapper,
     SemanticSegmentorWithTTA,
@@ -126,6 +127,9 @@ class Trainer(DefaultTrainer):
         if output_folder is None:
             output_folder = os.path.join(cfg.OUTPUT_DIR, "inference")
         evaluator_list = []
+        print("==============================")
+        print(f"dataset_name: {dataset_name}")
+        print("==============================")
         evaluator_type = MetadataCatalog.get(dataset_name).evaluator_type
         # semantic segmentation
         if evaluator_type in ["sem_seg", "ade20k_panoptic_seg"]:
@@ -213,6 +217,9 @@ class Trainer(DefaultTrainer):
         # Semantic segmentation dataset mapper
         elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_semantic":
             mapper = MaskFormerSemanticDatasetMapper(cfg, True)
+            return build_detection_train_loader(cfg, mapper=mapper)
+        elif cfg.INPUT.DATASET_MAPPER_NAME == "coco_panoptic_lsj_higharc_brochure":
+            mapper = COCOHigharcPanopticNewBaselineDatasetMapper(cfg, True)
             return build_detection_train_loader(cfg, mapper=mapper)
         else:
             mapper = None
